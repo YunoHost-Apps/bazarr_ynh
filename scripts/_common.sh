@@ -1,0 +1,58 @@
+#!/bin/bash
+
+#=================================================
+# COMMON VARIABLES
+#=================================================
+
+python_version="3.7"
+python_major_version=$(echo $python_version | cut -d. -f1)
+
+# dependencies used by the app
+if [[ $YNH_ARCH != arm* ]]
+then
+	pkg_dependencies="libxml2-dev libxslt1-dev python3-dev python3-libxml2 python3-lxml unrar-free ffmpeg libatlas-base-dev"
+else
+	pkg_dependencies="libxml2-dev libxslt1-dev python3-dev python3-libxml2 python3-lxml unrar-free ffmpeg libatlas-base-dev"
+fi
+
+pkg_dependencies+=" python${python_major_version}-venv"
+
+#=================================================
+# PERSONAL HELPERS
+#=================================================
+
+detect_and_read_radarr_and_sonarr_settings() {
+
+if ls /etc/yunohost/apps | grep -q "radarr"; then
+        radarr_installed=True
+        radarr_port=$(ynh_app_setting_get --app radarr --key port)
+        radarr_path=$(ynh_app_setting_get --app radarr --key path)
+        radarr_api_key=$(ynh_app_setting_get --app radarr --key api_key)
+else
+        radarr_installed=False
+        radarr_port=""
+        radarr_path=""
+        radarr_api_key=""
+fi
+
+if ls /etc/yunohost/apps | grep -q "sonarr"; then
+        sonarr_installed=True
+        sonarr_port=$(ynh_app_setting_get --app sonarr --key port)
+        sonarr_path=$(ynh_app_setting_get --app sonarr --key path)
+        sonarr_api_key=$(ynh_app_setting_get --app sonarr --key api_key)
+else
+        sonarr_installed=False
+        sonarr_port=""
+        sonarr_path=""
+        sonarr_api_key=""
+fi
+
+}
+
+#=================================================
+# EXPERIMENTAL HELPERS
+#=================================================
+
+#=================================================
+# FUTURE OFFICIAL HELPERS
+#=================================================

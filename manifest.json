@@ -1,0 +1,47 @@
+{
+    "name": "Bazarr",
+    "id": "bazarr",
+    "packaging_format": 1,
+    "description": {
+        "en": "Automated subtitle downloading for Sonarr and Radarr",
+        "fr": "Téléchargement automatique de sous-titres pour Sonarr et Radarr"
+    },
+    "version": "1.0.1~ynh1",
+    "url": "https://bazarr.media",
+    "upstream": {
+        "license": "GPL-3.0",
+        "website": "https://bazarr.media",
+        "admindoc": "https://wiki.bazarr.media",
+        "code": "https://github.com/morpheus65535/bazarr"
+    },
+    "license": "GPL-3.0",
+    "maintainer": {
+        "name": "tituspijean",
+        "email": "tituspijean@outlook.com"
+    },
+    "requirements": {
+        "yunohost": ">= 4.3.0"
+    },
+    "multi_instance": true,
+    "services": [
+        "nginx"
+    ],
+    "arguments": {
+        "install" : [
+            {
+                "name": "domain",
+                "type": "domain"
+            },
+            {
+                "name": "path",
+                "type": "path",
+                "example": "/bazaar",
+                "default": "/bazarr"
+            },
+            {
+                "name": "admin",
+                "type": "user"
+            }
+        ]
+    }
+}

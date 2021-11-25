@@ -1,0 +1,3 @@
+- If Radarr or Sonarr are installed on your server, the app will automatically retrieve their settings and integrate them in its config.
+  - If you add or remove them afterwards, force an upgrade of Bazarr: it will update its settings again.
+- Enabling Auto-updating in the settings is discouraged and no support will be provided if you do so.
