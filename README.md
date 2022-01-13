@@ -30,7 +30,7 @@ Bazarr is a companion application to Sonarr and Radarr that manages and download
 
 ## Screenshots
 
-![](./doc/screenshots/example.jpg)
+![](./doc/screenshots/bazarr.png)
 
 ## Disclaimers / important information
 

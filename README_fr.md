@@ -26,7 +26,7 @@ Bazarr is a companion application to Sonarr and Radarr that manages and download
 
 ## Captures d'écran
 
-![](./doc/screenshots/example.jpg)
+![](./doc/screenshots/bazarr.png)
 
 ## Avertissements / informations importantes
 
