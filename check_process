@@ -20,7 +20,7 @@
 		setup_private=1
 		setup_public=0
 		upgrade=1
-		#upgrade=1	from_commit=CommitHash
+		upgrade=1	from_commit=22445f018b70ed1a89593107afff498b672f93ad
 		backup_restore=1
 		multi_instance=1
 		port_already_use=0
@@ -29,6 +29,6 @@
 Email=
 Notification=none
 ;;; Upgrade options
-	; commit=CommitHash
-		name=Name and date of the commit.
-		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&language=fr&is_public=1&password=pass&port=666&
+	; commit=22445f018b70ed1a89593107afff498b672f93ad
+		name=2022-01-13 v1.0.1~ynh1
+		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&
