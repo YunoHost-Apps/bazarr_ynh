@@ -138,12 +138,25 @@ ynh_systemd_action --service_name=$app --action="stop" --line_match="Bazarr exit
 detect_and_read_radarr_and_sonarr_settings
 
 flask_key=$(ynh_string_random --length=32)
+ynh_app_setting_set --app=$app --key=flask_key --value=$flask_key
+
 api_key=$(ynh_string_random --length=32)
+ynh_app_setting_set --app=$app --key=api_key --value=$api_key
 
 ynh_add_config --template="config.ini" --destination="$final_path/data/config/config.ini"
 
 chmod 660 "$final_path/data/config/config.ini"
 chown $app: "$final_path/data/config/config.ini"
+
+#=================================================
+# YUNOHOST MULTIMEDIA INTEGRATION
+#=================================================
+ynh_script_progression --message="Adding multimedia directories..." --weight=1
+
+# Build YunoHost multimedia directories
+ynh_multimedia_build_main_dir
+# Enable writing into these directories
+ynh_multimedia_addaccess $app
 
 #=================================================
 # GENERIC FINALIZATION
