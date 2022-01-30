@@ -117,6 +117,14 @@ pushd $final_path
 popd
 
 #=================================================
+# SETUP SYSTEMD
+#=================================================
+ynh_script_progression --message="Configuring a systemd service..." --weight=1
+
+# Create a dedicated systemd config
+ynh_add_systemd_config
+
+#=================================================
 # ADD A CONFIGURATION
 #=================================================
 ynh_script_progression --message="Adding a configuration file..." --weight=1
@@ -138,14 +146,6 @@ ynh_add_config --template="config.ini" --destination="$final_path/data/config/co
 
 chmod 660 "$final_path/data/config/config.ini"
 chown $app: "$final_path/data/config/config.ini"
-
-#=================================================
-# SETUP SYSTEMD
-#=================================================
-ynh_script_progression --message="Configuring a systemd service..." --weight=1
-
-# Create a dedicated systemd config
-ynh_add_systemd_config
 
 #=================================================
 # YUNOHOST MULTIMEDIA INTEGRATION
