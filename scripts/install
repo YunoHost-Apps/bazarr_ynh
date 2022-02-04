@@ -111,7 +111,7 @@ ynh_script_progression --message="Installing Bazarr and its dependencies..." --w
 
 pushd $final_path
         # Initialize virtual environment
-        ynh_exec_as $app python${python_version} -m venv venv
+        ynh_exec_as $app python${python_major_version} -m venv venv
 
         ynh_exec_as $app $final_path/venv/bin/pip install -r "$final_path/requirements.txt"
 popd
