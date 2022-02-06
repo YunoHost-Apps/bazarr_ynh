@@ -27,6 +27,7 @@ detect_and_read_radarr_and_sonarr_settings
 #=================================================
 # CHECK VERSION
 #=================================================
+ynh_script_progression --message="Checking version..."
 
 upgrade_type=$(ynh_check_app_version_changed)
 
@@ -52,12 +53,6 @@ ynh_abort_if_errors
 ynh_script_progression --message="Stopping a systemd service..." --weight=1
 
 ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app/$app.log"
-
-#=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-#ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
-
 
 #=================================================
 # CREATE DEDICATED USER
@@ -114,7 +109,7 @@ ynh_script_progression --message="Upgrading Bazarr and its dependencies..." --we
 
 pushd $final_path
         # Initialize virtual environment
-        ynh_exec_as $app python${python_version} -m venv venv
+        ynh_exec_as $app python${python_major_version} -m venv venv
 
         ynh_exec_as $app $final_path/venv/bin/pip install -r "$final_path/requirements.txt"
 popd
@@ -128,6 +123,16 @@ ynh_add_config --template="config.ini" --destination="$final_path/data/config/co
 
 chmod 660 "$final_path/data/config/config.ini"
 chown $app: "$final_path/data/config/config.ini"
+
+#=================================================
+# YUNOHOST MULTIMEDIA INTEGRATION
+#=================================================
+ynh_script_progression --message="Adding multimedia directories..." --weight=1
+
+# Build YunoHost multimedia directories
+ynh_multimedia_build_main_dir
+# Enable writing into these directories
+ynh_multimedia_addaccess $app
 
 #=================================================
 # SETUP SYSTEMD
