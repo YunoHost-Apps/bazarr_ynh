@@ -117,12 +117,13 @@ popd
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
-ynh_script_progression --message="Updating a configuration file..." --weight=1
+#FIXME: Find a way not to override all settings while upgrading the config file.
+#ynh_script_progression --message="Updating a configuration file..." --weight=1
 
-ynh_add_config --template="config.ini" --destination="$final_path/data/config/config.ini"
+#ynh_add_config --template="config.ini" --destination="$final_path/data/config/config.ini"
 
-chmod 660 "$final_path/data/config/config.ini"
-chown $app: "$final_path/data/config/config.ini"
+#chmod 660 "$final_path/data/config/config.ini"
+#chown $app: "$final_path/data/config/config.ini"
 
 #=================================================
 # YUNOHOST MULTIMEDIA INTEGRATION
@@ -138,6 +139,8 @@ ynh_multimedia_addaccess $app
 # SETUP SYSTEMD
 #=================================================
 ynh_script_progression --message="Upgrading systemd configuration..." --weight=1
+
+env_path="$final_path/venv/bin:$PATH"
 
 # Create a dedicated systemd config
 ynh_add_systemd_config
