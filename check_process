@@ -15,7 +15,7 @@
 		setup_private=1
 		setup_public=0
 		upgrade=1
-		upgrade=1	from_commit=22445f018b70ed1a89593107afff498b672f93ad
+#		upgrade=1	from_commit=4a9e25900da812c232a19d90ce037d099d8417f5
 		backup_restore=1
 		multi_instance=1
 		port_already_use=0
@@ -24,6 +24,7 @@
 Email=
 Notification=none
 ;;; Upgrade options
-	; commit=22445f018b70ed1a89593107afff498b672f93ad
-		name=2022-01-13 v1.0.1~ynh1
+# Disabled because YunoHost 11 does not ship python3.7 anymore
+	; commit=4a9e25900da812c232a19d90ce037d099d8417f5
+		name=2022-03-31 v1.0.1~ynh3
 		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&
