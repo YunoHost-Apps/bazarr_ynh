@@ -5,15 +5,16 @@ It shall NOT be edited by hand.
 
 # Bazarr pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/bazarr.svg)](https://dash.yunohost.org/appci/app/bazarr) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/bazarr.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/bazarr.maintain.svg)  
+[![Niveau d’intégration](https://dash.yunohost.org/integration/bazarr.svg)](https://dash.yunohost.org/appci/app/bazarr) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/bazarr.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/bazarr.maintain.svg)
+
 [![Installer Bazarr avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=bazarr)
 
 *[Read this readme in english.](./README.md)*
 
-> *Ce package vous permet d'installer Bazarr rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
+> *Ce package vous permet d’installer Bazarr rapidement et simplement sur un serveur YunoHost.
+Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l’installer et en profiter.*
 
-## Vue d'ensemble
+## Vue d’ensemble
 
 Bazarr is a companion application to Sonarr and Radarr that manages and downloads subtitles based on your requirements.
 
@@ -24,11 +25,11 @@ Bazarr is a companion application to Sonarr and Radarr that manages and download
 - Subtitles upgrade whenever better ones are released
 
 
-**Version incluse :** 1.1.3~ynh1
+**Version incluse :** 1.2.0~ynh1
 
-## Captures d'écran
+## Captures d’écran
 
-![Capture d'écran de Bazarr](./doc/screenshots/bazarr.png)
+![Capture d’écran de Bazarr](./doc/screenshots/bazarr.png)
 
 ## Avertissements / informations importantes
 
@@ -37,9 +38,9 @@ Bazarr is a companion application to Sonarr and Radarr that manages and download
 
 ## Documentations et ressources
 
-* Site officiel de l'app : <https://bazarr.media>
-* Documentation officielle de l'admin : <https://wiki.bazarr.media>
-* Dépôt de code officiel de l'app : <https://github.com/morpheus65535/bazarr>
+* Site officiel de l’app : <https://bazarr.media>
+* Documentation officielle de l’admin : <https://wiki.bazarr.media>
+* Dépôt de code officiel de l’app : <https://github.com/morpheus65535/bazarr>
 * Documentation YunoHost pour cette app : <https://yunohost.org/app_bazarr>
 * Signaler un bug : <https://github.com/YunoHost-Apps/bazarr_ynh/issues>
 
@@ -55,4 +56,4 @@ ou
 sudo yunohost app upgrade bazarr -u https://github.com/YunoHost-Apps/bazarr_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications :** <https://yunohost.org/packaging_apps>
+**Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>
