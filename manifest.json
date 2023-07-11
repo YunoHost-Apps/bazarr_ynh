@@ -6,7 +6,7 @@
         "en": "Automated subtitle downloading for Sonarr and Radarr",
         "fr": "Téléchargement automatique de sous-titres pour Sonarr et Radarr"
     },
-    "version": "1.2.2~ynh1",
+    "version": "1.2.3~ynh1",
     "url": "https://bazarr.media",
     "upstream": {
         "license": "GPL-3.0",
