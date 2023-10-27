@@ -1,7 +1,0 @@
-SOURCE_URL=https://github.com/morpheus65535/bazarr/releases/download/v1.2.2/bazarr.zip
-SOURCE_SUM=8076da46a504c137d81b8909dc1371686ef81032d6ee485fbc293a7644402edf
-SOURCE_SUM_PRG=sha256sum
-SOURCE_FORMAT=zip
-SOURCE_IN_SUBDIR=false
-SOURCE_FILENAME=
-SOURCE_EXTRACT=true
