@@ -54,4 +54,4 @@ ram.runtime = "50M"
     main.allowed = "admins"
 
     [resources.apt]
-    packages = "libxml2-dev, libxslt1-dev, unrar-free, ffmpeg, libatlas-base-dev"
+    packages = "libxml2-dev, libxslt1-dev, unrar-free, ffmpeg, libatlas-base-dev, python3-venv"
