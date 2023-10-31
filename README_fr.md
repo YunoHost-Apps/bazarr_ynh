@@ -41,6 +41,7 @@ Bazarr is a companion application to Sonarr and Radarr that manages and download
 * Site officiel de l’app : <https://bazarr.media>
 * Documentation officielle de l’admin : <https://wiki.bazarr.media>
 * Dépôt de code officiel de l’app : <https://github.com/morpheus65535/bazarr>
+* YunoHost Store: <https://apps.yunohost.org/app/bazarr>
 * Signaler un bug : <https://github.com/YunoHost-Apps/bazarr_ynh/issues>
 
 ## Informations pour les développeurs
