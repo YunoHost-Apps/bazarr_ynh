@@ -7,7 +7,6 @@
 python_version="3.7"
 python_major_version=$(echo $python_version | cut -d. -f1)
 
-pkg_dependencies="libxml2-dev libxslt1-dev unrar-free ffmpeg libatlas-base-dev"
 pkg_dependencies+=" python${python_major_version}-libxml2 python${python_major_version}-lxml"
 pkg_dependencies+=" python${python_major_version}-dev python${python_major_version}-venv"
 
