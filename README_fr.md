@@ -31,16 +31,12 @@ Bazarr is a companion application to Sonarr and Radarr that manages and download
 
 ![Capture d’écran de Bazarr](./doc/screenshots/bazarr.png)
 
-## Avertissements / informations importantes
-
-- If Radarr or Sonarr are installed beforehand on your server, the app will automatically retrieve their settings and integrate them in its config.
-- Enabling Auto-updating in the settings is discouraged and no support will be provided if you do so.
-
 ## Documentations et ressources
 
 * Site officiel de l’app : <https://bazarr.media>
 * Documentation officielle de l’admin : <https://wiki.bazarr.media>
 * Dépôt de code officiel de l’app : <https://github.com/morpheus65535/bazarr>
+* YunoHost Store: <https://apps.yunohost.org/app/bazarr>
 * Signaler un bug : <https://github.com/YunoHost-Apps/bazarr_ynh/issues>
 
 ## Informations pour les développeurs
