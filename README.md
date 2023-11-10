@@ -31,11 +31,6 @@ Bazarr is a companion application to Sonarr and Radarr that manages and download
 
 ![Screenshot of Bazarr](./doc/screenshots/bazarr.png)
 
-## Disclaimers / important information
-
-- If Radarr or Sonarr are installed beforehand on your server, the app will automatically retrieve their settings and integrate them in its config.
-- Enabling Auto-updating in the settings is discouraged and no support will be provided if you do so.
-
 ## Documentation and resources
 
 * Official app website: <https://bazarr.media>

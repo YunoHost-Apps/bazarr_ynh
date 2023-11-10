@@ -8,8 +8,8 @@ User=__APP__
 Group=__APP__
 Environment=PYTHONUNBUFFERED=1
 Environment=PATH=__ENV_PATH__
-WorkingDirectory=__FINALPATH__/
-ExecStart=__FINALPATH__/venv/bin/python bazarr.py
+WorkingDirectory=__INSTALL_DIR__/
+ExecStart=__INSTALL_DIR__/venv/bin/python bazarr.py
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
 

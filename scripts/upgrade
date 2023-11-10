@@ -14,36 +14,13 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression --message="Loading installation settings..." --weight=1
 
-app=$YNH_APP_INSTANCE_NAME
-
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-path_url=$(ynh_app_setting_get --app=$app --key=path)
-final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-port=$(ynh_app_setting_get --app=$app --key=port)
-flask_key=$(ynh_app_setting_get --app=$app --key=flask_key)
-api_key=$(ynh_app_setting_get --app=$app --key=api_key)
 detect_and_read_radarr_and_sonarr_settings
 
 #=================================================
 # CHECK VERSION
 #=================================================
-ynh_script_progression --message="Checking version..."
 
 upgrade_type=$(ynh_check_app_version_changed)
-
-#=================================================
-# BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
-#=================================================
-ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=4
-
-# Backup the current version of the app
-ynh_backup_before_upgrade
-ynh_clean_setup () {
-	# Restore it if the upgrade fails
-	ynh_restore_upgradebackup
-}
-# Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
 
 #=================================================
 # STANDARD UPGRADE STEPS
@@ -55,14 +32,6 @@ ynh_script_progression --message="Stopping a systemd service..." --weight=1
 ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app/$app.log"
 
 #=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
-
-# Create a dedicated user (if not existing)
-ynh_system_user_create --username=$app --home_dir="$final_path"
-
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
@@ -71,12 +40,11 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=2
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path"
+	ynh_setup_source --dest_dir="$install_dir"
 fi
 
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app: "$final_path"
+chmod -R o-rwx "$install_dir"
+chown -R $app: "$install_dir"
 
 # Prepare log path
 log_path="/var/log/$app"
@@ -93,25 +61,28 @@ ynh_script_progression --message="Upgrading NGINX web server configuration..." -
 # Create a dedicated NGINX config
 ynh_add_nginx_config
 
-#=================================================
-# UPGRADE DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Upgrading dependencies..." --weight=3
+env_path="$install_dir/venv/bin:$PATH"
 
-ynh_install_app_dependencies $pkg_dependencies
+# Create a dedicated systemd config
+ynh_add_systemd_config
+
+# Use logrotate to manage app-specific logfile(s)
+ynh_use_logrotate --non-append
+
+yunohost service add $app --description="Subtitle downloader for Radarr and Sonarr" --log="/var/log/$app/$app.log"
 
 #=================================================
 # SPECIFIC UPGRADE
 #=================================================
 # UPGRADING BAZARR
 #=================================================
-ynh_script_progression --message="Upgrading Bazarr and its dependencies..." --weight=5
+#REMOVEME? ynh_script_progression --message="Upgrading Bazarr and its dependencies..." --weight=5
 
-pushd $final_path
+pushd $install_dir
         # Initialize virtual environment
         ynh_exec_as $app python${python_major_version} -m venv venv
 
-        ynh_exec_as $app $final_path/venv/bin/pip install -r "$final_path/requirements.txt"
+        ynh_exec_as $app $install_dir/venv/bin/pip install -r "$install_dir/requirements.txt"
 popd
 
 #=================================================
@@ -120,10 +91,10 @@ popd
 #FIXME: Find a way not to override all settings while upgrading the config file.
 #ynh_script_progression --message="Updating a configuration file..." --weight=1
 
-#ynh_add_config --template="config.ini" --destination="$final_path/data/config/config.ini"
+#ynh_add_config --template="config.ini" --destination="$install_dir/data/config/config.ini"
 
-#chmod 660 "$final_path/data/config/config.ini"
-#chown $app: "$final_path/data/config/config.ini"
+#chmod 660 "$install_dir/data/config/config.ini"
+#chown $app: "$install_dir/data/config/config.ini"
 
 #=================================================
 # YUNOHOST MULTIMEDIA INTEGRATION
@@ -136,45 +107,11 @@ ynh_multimedia_build_main_dir
 ynh_multimedia_addaccess $app
 
 #=================================================
-# SETUP SYSTEMD
-#=================================================
-ynh_script_progression --message="Upgrading systemd configuration..." --weight=1
-
-env_path="$final_path/venv/bin:$PATH"
-
-# Create a dedicated systemd config
-ynh_add_systemd_config
-
-#=================================================
-# GENERIC FINALIZATION
-#=================================================
-# SETUP LOGROTATE
-#=================================================
-ynh_script_progression --message="Upgrading logrotate configuration..." --weight=1
-
-# Use logrotate to manage app-specific logfile(s)
-ynh_use_logrotate --non-append
-
-#=================================================
-# INTEGRATE SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
-
-yunohost service add $app --description="Subtitle downloader for Radarr and Sonarr" --log="/var/log/$app/$app.log"
-
-#=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
-
-#=================================================
-# RELOAD NGINX
-#=================================================
-ynh_script_progression --message="Reloading NGINX web server..." --weight=1
-
-ynh_systemd_action --service_name=nginx --action=reload
 
 #=================================================
 # END OF SCRIPT
