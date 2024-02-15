@@ -41,7 +41,7 @@ ram.runtime = "50M"
         url = "https://github.com/morpheus65535/bazarr/releases/download/v1.2.2/bazarr.zip"
         sha256 = "8076da46a504c137d81b8909dc1371686ef81032d6ee485fbc293a7644402edf"
         in_subdir = false
-
+        autoupdate.strategy = "latest_github_release"
 
     [resources.system_user]
 
