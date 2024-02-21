@@ -5,7 +5,7 @@ name = "Bazarr"
 description.en = "Automated subtitle downloading for Sonarr and Radarr"
 description.fr = "Téléchargement automatique de sous-titres pour Sonarr et Radarr"
 
-version = "1.3.1~ynh1"
+version = "1.4.2~ynh1"
 
 maintainers = ["tituspijean"]
 
@@ -38,8 +38,8 @@ ram.runtime = "50M"
 
 [resources]
         [resources.sources.main]
-        url = "https://github.com/morpheus65535/bazarr/releases/download/v1.2.2/bazarr.zip"
-        sha256 = "8076da46a504c137d81b8909dc1371686ef81032d6ee485fbc293a7644402edf"
+        url = "https://github.com/morpheus65535/bazarr/archive/refs/tags/v1.4.2.tar.gz"
+        sha256 = "670d434bdb2a7fa3512562cb3b8aea95fbfe9a4ec78100b9922f61b9789676bc"
         in_subdir = false
         autoupdate.strategy = "latest_github_release"
 
