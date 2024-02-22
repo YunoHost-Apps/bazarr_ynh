@@ -40,7 +40,7 @@ ram.runtime = "50M"
         [resources.sources.main]
         url = "https://github.com/morpheus65535/bazarr/archive/refs/tags/v1.4.2.tar.gz"
         sha256 = "670d434bdb2a7fa3512562cb3b8aea95fbfe9a4ec78100b9922f61b9789676bc"
-        in_subdir = false
+        in_subdir = true
         autoupdate.strategy = "latest_github_release"
 
     [resources.system_user]
