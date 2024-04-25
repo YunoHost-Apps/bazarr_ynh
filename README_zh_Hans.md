@@ -25,7 +25,7 @@ Bazarr is a companion application to Sonarr and Radarr that manages and download
 - Subtitles upgrade whenever better ones are released
 
 
-**分发版本：** 1.3.1~ynh2
+**分发版本：** 1.4.2~ynh1
 
 ## 截图
 
