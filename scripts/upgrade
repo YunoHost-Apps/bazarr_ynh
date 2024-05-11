@@ -43,6 +43,8 @@ then
 	ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep="$install_dir/data"
 fi
 
+mkdir -p "$install_dir/data/config"
+
 chmod -R o-rwx "$install_dir"
 chown -R $app: "$install_dir"
 
