@@ -92,7 +92,7 @@ popd
 #=================================================
 #FIXME: Find a way not to override all settings while upgrading the config file.
 #FIXME: This is done once after v1.4.0 that changed the config file from .ini to .yaml format
-if ynh_compare_current_package_version --comparison lt --version 1.4.0~ynh1
+if ynh_compare_current_package_version --comparison lt --version 1.4.0~ynh1 || [ ! -f "$install_dir/data/config/config.yaml" ]
 then
     ynh_script_progression --message="Updating a configuration file..." --weight=1
     ynh_add_config --template="config.yaml" --destination="$install_dir/data/config/config.yaml"
