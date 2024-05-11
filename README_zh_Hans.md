@@ -3,7 +3,7 @@
 请勿手动编辑。
 -->
 
-# YunoHost 的 Bazarr
+# YunoHost 上的 Bazarr
 
 [![集成程度](https://dash.yunohost.org/integration/bazarr.svg)](https://dash.yunohost.org/appci/app/bazarr) ![工作状态](https://ci-apps.yunohost.org/ci/badges/bazarr.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/bazarr.maintain.svg)
 
@@ -25,7 +25,7 @@ Bazarr is a companion application to Sonarr and Radarr that manages and download
 - Subtitles upgrade whenever better ones are released
 
 
-**分发版本：** 1.3.1~ynh2
+**分发版本：** 1.4.2~ynh1
 
 ## 截图
 
