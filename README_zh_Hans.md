@@ -3,7 +3,7 @@
 请勿手动编辑。
 -->
 
-# YunoHost 的 Bazarr
+# YunoHost 上的 Bazarr
 
 [![集成程度](https://dash.yunohost.org/integration/bazarr.svg)](https://dash.yunohost.org/appci/app/bazarr) ![工作状态](https://ci-apps.yunohost.org/ci/badges/bazarr.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/bazarr.maintain.svg)
 
