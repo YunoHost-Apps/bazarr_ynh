@@ -40,8 +40,10 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=2
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir"
+	ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep="$install_dir/data"
 fi
+
+mkdir -p "$install_dir/data/config"
 
 chmod -R o-rwx "$install_dir"
 chown -R $app: "$install_dir"
@@ -79,22 +81,25 @@ yunohost service add $app --description="Subtitle downloader for Radarr and Sona
 #REMOVEME? ynh_script_progression --message="Upgrading Bazarr and its dependencies..." --weight=5
 
 pushd $install_dir
-        # Initialize virtual environment
-        ynh_exec_as $app python${python_major_version} -m venv venv
+    # Initialize virtual environment
+    ynh_exec_as $app python${python_major_version} -m venv venv
 
-        ynh_exec_as $app $install_dir/venv/bin/pip install -r "$install_dir/requirements.txt"
+    ynh_exec_as $app $install_dir/venv/bin/pip install -r "$install_dir/requirements.txt"
 popd
 
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
 #FIXME: Find a way not to override all settings while upgrading the config file.
-#ynh_script_progression --message="Updating a configuration file..." --weight=1
+#FIXME: This is done once after v1.4.0 that changed the config file from .ini to .yaml format
+if ynh_compare_current_package_version --comparison lt --version 1.4.0~ynh1 || [ ! -f "$install_dir/data/config/config.yaml" ]
+then
+    ynh_script_progression --message="Updating a configuration file..." --weight=1
+    ynh_add_config --template="config.yaml" --destination="$install_dir/data/config/config.yaml"
+fi
 
-#ynh_add_config --template="config.ini" --destination="$install_dir/data/config/config.ini"
-
-#chmod 660 "$install_dir/data/config/config.ini"
-#chown $app: "$install_dir/data/config/config.ini"
+chmod 660 "$install_dir/data/config/config.yaml"
+chown $app: "$install_dir/data/config/config.yaml"
 
 #=================================================
 # YUNOHOST MULTIMEDIA INTEGRATION
