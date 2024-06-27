@@ -5,7 +5,7 @@ No se debe editar a mano.
 
 # Bazarr para Yunohost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/bazarr.svg)](https://dash.yunohost.org/appci/app/bazarr) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/bazarr.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/bazarr.maintain.svg)
+[![Nivel de integración](https://dash.yunohost.org/integration/bazarr.svg)](https://ci-apps.yunohost.org/ci/apps/bazarr/) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/bazarr.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/bazarr.maintain.svg)
 
 [![Instalar Bazarr con Yunhost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=bazarr)
 

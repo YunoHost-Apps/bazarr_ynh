@@ -5,7 +5,7 @@
 
 # YunoHost 上的 Bazarr
 
-[![集成程度](https://dash.yunohost.org/integration/bazarr.svg)](https://dash.yunohost.org/appci/app/bazarr) ![工作状态](https://ci-apps.yunohost.org/ci/badges/bazarr.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/bazarr.maintain.svg)
+[![集成程度](https://dash.yunohost.org/integration/bazarr.svg)](https://ci-apps.yunohost.org/ci/apps/bazarr/) ![工作状态](https://ci-apps.yunohost.org/ci/badges/bazarr.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/bazarr.maintain.svg)
 
 [![使用 YunoHost 安装 Bazarr](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=bazarr)
 

@@ -5,7 +5,7 @@ EZ editatu eskuz.
 
 # Bazarr YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/bazarr.svg)](https://dash.yunohost.org/appci/app/bazarr) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/bazarr.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/bazarr.maintain.svg)
+[![Integrazio maila](https://dash.yunohost.org/integration/bazarr.svg)](https://ci-apps.yunohost.org/ci/apps/bazarr/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/bazarr.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/bazarr.maintain.svg)
 
 [![Instalatu Bazarr YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=bazarr)
 
