@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #=================================================
-# COMMON VARIABLES
+# COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
 
 python_version="3.7"
@@ -9,10 +9,6 @@ python_major_version=$(echo $python_version | cut -d. -f1)
 
 pkg_dependencies+=" python${python_major_version}-libxml2 python${python_major_version}-lxml"
 pkg_dependencies+=" python${python_major_version}-dev python${python_major_version}-venv"
-
-#=================================================
-# PERSONAL HELPERS
-#=================================================
 
 detect_and_read_radarr_and_sonarr_settings() {
 
@@ -41,11 +37,3 @@ else
 fi
 
 }
-
-#=================================================
-# EXPERIMENTAL HELPERS
-#=================================================
-
-#=================================================
-# FUTURE OFFICIAL HELPERS
-#=================================================

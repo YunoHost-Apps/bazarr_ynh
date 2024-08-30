@@ -1,53 +1,39 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
 # LOAD SETTINGS
 #=================================================
-ynh_script_progression --message="Loading installation settings..." --weight=1
+ynh_script_progression "Loading installation settings..."
 
 detect_and_read_radarr_and_sonarr_settings
 
 #=================================================
-# CHECK VERSION
-#=================================================
-
-upgrade_type=$(ynh_check_app_version_changed)
-
-#=================================================
-# STANDARD UPGRADE STEPS
-#=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Stopping a systemd service..." --weight=1
+ynh_script_progression "Stopping $app's systemd service..."
 
-ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app/$app.log"
+ynh_systemctl --service=$app --action="stop"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
-if [ "$upgrade_type" == "UPGRADE_APP" ]
+# FIXME: this is still supported but the recommendation is now to *always* re-setup the app sources wether or not the upstream sources changed
+if ynh_app_upstream_version_changed
 then
-	ynh_script_progression --message="Upgrading source files..." --weight=2
+	ynh_script_progression "Upgrading source files..."
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep="$install_dir/data"
+	ynh_setup_source --dest_dir="$install_dir" --full_replace --keep="$install_dir/data"
 fi
 
 mkdir -p "$install_dir/data/config"
 
-chmod -R o-rwx "$install_dir"
-chown -R $app: "$install_dir"
-
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app: "$install_dir"
 # Prepare log path
 log_path="/var/log/$app"
 mkdir -p "$log_path"
@@ -58,33 +44,31 @@ chown -R $app: "$log_path"
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=1
+ynh_script_progression "Upgrading NGINX web server configuration..."
 
 # Create a dedicated NGINX config
-ynh_add_nginx_config
+ynh_config_add_nginx
 
 env_path="$install_dir/venv/bin:$PATH"
 
 # Create a dedicated systemd config
-ynh_add_systemd_config
+ynh_config_add_systemd
 
 # Use logrotate to manage app-specific logfile(s)
-ynh_use_logrotate --non-append
+ynh_config_add_logrotate
 
 yunohost service add $app --description="Subtitle downloader for Radarr and Sonarr" --log="/var/log/$app/$app.log"
 
 #=================================================
-# SPECIFIC UPGRADE
-#=================================================
 # UPGRADING BAZARR
 #=================================================
-#REMOVEME? ynh_script_progression --message="Upgrading Bazarr and its dependencies..." --weight=5
+#REMOVEME? ynh_script_progression "Upgrading Bazarr and its dependencies..."
 
 pushd $install_dir
     # Initialize virtual environment
-    ynh_exec_as $app python${python_major_version} -m venv venv
+    ynh_exec_as_app python${python_major_version} -m venv venv
 
-    ynh_exec_as $app $install_dir/venv/bin/pip install -r "$install_dir/requirements.txt"
+    ynh_exec_as_app $install_dir/venv/bin/pip install -r "$install_dir/requirements.txt"
 popd
 
 #=================================================
@@ -92,19 +76,19 @@ popd
 #=================================================
 #FIXME: Find a way not to override all settings while upgrading the config file.
 #FIXME: This is done once after v1.4.0 that changed the config file from .ini to .yaml format
-if ynh_compare_current_package_version --comparison lt --version 1.4.0~ynh1 || [ ! -f "$install_dir/data/config/config.yaml" ]
+if ynh_app_upgrading_from_version_before 1.4.0~ynh1 || [ ! -f "$install_dir/data/config/config.yaml" ]
 then
-    ynh_script_progression --message="Updating a configuration file..." --weight=1
-    ynh_add_config --template="config.yaml" --destination="$install_dir/data/config/config.yaml"
+    ynh_script_progression "Updating configuration..."
+    ynh_config_add --template="config.yaml" --destination="$install_dir/data/config/config.yaml"
 fi
 
-chmod 660 "$install_dir/data/config/config.yaml"
-chown $app: "$install_dir/data/config/config.yaml"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 660 "$install_dir/data/config/config.yaml"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app: "$install_dir/data/config/config.yaml"
 
 #=================================================
 # YUNOHOST MULTIMEDIA INTEGRATION
 #=================================================
-ynh_script_progression --message="Adding multimedia directories..." --weight=1
+ynh_script_progression "Adding multimedia directories..."
 
 # Build YunoHost multimedia directories
 ynh_multimedia_build_main_dir
@@ -114,12 +98,12 @@ ynh_multimedia_addaccess $app
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --weight=1
+ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
+ynh_systemctl --service=$app --action="start"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Upgrade of $app completed" --last
+ynh_script_progression "Upgrade of $app completed"
