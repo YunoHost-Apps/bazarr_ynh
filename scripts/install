@@ -1,25 +1,18 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Setting up source files..." --weight=2
+ynh_script_progression "Setting up source files..."
 
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir"
 
-chmod -R o-rwx "$install_dir"
-chown -R $app: "$install_dir"
-
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app: "$install_dir"
 # Prepare log path
 log_path="/var/log/$app"
 mkdir -p "$log_path"
@@ -30,62 +23,62 @@ chown -R $app: "$log_path"
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring NGINX web server..." --weight=1
+ynh_script_progression "Configuring NGINX web server..."
 
 # Create a dedicated NGINX config
-ynh_add_nginx_config
+ynh_config_add_nginx
 
 #=================================================
 # SPECIFIC SETUP
 #=================================================
 # PREPARE PYTHON ENVIRONMENT AND INSTALL
 #=================================================
-ynh_script_progression --message="Installing Bazarr and its dependencies..." --weight=5
+ynh_script_progression "Installing Bazarr and its dependencies..."
 
 pushd $install_dir
         # Initialize virtual environment
-        ynh_exec_as $app python${python_major_version} -m venv venv
+        ynh_exec_as_app python${python_major_version} -m venv venv
 
-        ynh_exec_as $app $install_dir/venv/bin/pip install -r "$install_dir/requirements.txt"
+        ynh_exec_as_app $install_dir/venv/bin/pip install -r "$install_dir/requirements.txt"
 popd
 
 #=================================================
 # SETUP SYSTEMD
 #=================================================
-ynh_script_progression --message="Configuring a systemd service..." --weight=1
+ynh_script_progression "Configuring $app's systemd service..."
 
 env_path="$install_dir/venv/bin:$PATH"
 
 # Create a dedicated systemd config
-ynh_add_systemd_config
+ynh_config_add_systemd
 
 #=================================================
 # ADD A CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding a configuration file..." --weight=1
+ynh_script_progression "Adding $app's configuration..."
 
 # Letting Bazarr deploy itself
-ynh_systemd_action --service_name=$app --action="start" --line_match="BAZARR is started" --log_path="/var/log/$app/$app.log" --timeout=60
+ynh_systemctl --service=$app --action="start" --wait_until="BAZARR is started"  --timeout=60
 sleep 3
-ynh_systemd_action --service_name=$app --action="stop" --line_match="Bazarr exited" --log_path="/var/log/$app/$app.log" --timeout=20
+ynh_systemctl --service=$app --action="stop" --wait_until="Bazarr exited"  --timeout=20
 
 detect_and_read_radarr_and_sonarr_settings
 
 flask_key=$(ynh_string_random --length=32)
-ynh_app_setting_set --app=$app --key=flask_key --value=$flask_key
+ynh_app_setting_set --key=flask_key --value=$flask_key
 
 api_key=$(ynh_string_random --length=32)
-ynh_app_setting_set --app=$app --key=api_key --value=$api_key
+ynh_app_setting_set --key=api_key --value=$api_key
 
-ynh_add_config --template="config.yaml" --destination="$install_dir/data/config/config.yaml"
+ynh_config_add --template="config.yaml" --destination="$install_dir/data/config/config.yaml"
 
-chmod 660 "$install_dir/data/config/config.yaml"
-chown $app: "$install_dir/data/config/config.yaml"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 660 "$install_dir/data/config/config.yaml"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app: "$install_dir/data/config/config.yaml"
 
 #=================================================
 # YUNOHOST MULTIMEDIA INTEGRATION
 #=================================================
-ynh_script_progression --message="Adding multimedia directories..." --weight=1
+ynh_script_progression "Adding multimedia directories..."
 
 # Build YunoHost multimedia directories
 ynh_multimedia_build_main_dir
@@ -93,32 +86,30 @@ ynh_multimedia_build_main_dir
 ynh_multimedia_addaccess $app
 
 #=================================================
-# GENERIC FINALIZATION
-#=================================================
 # SETUP LOGROTATE
 #=================================================
-ynh_script_progression --message="Configuring log rotation..." --weight=1
+ynh_script_progression "Configuring log rotation..."
 
 # Use logrotate to manage application logfile(s)
-ynh_use_logrotate
+ynh_config_add_logrotate
 
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
+ynh_script_progression "Integrating service in YunoHost..."
 
 yunohost service add $app --description="Subtitle downloader for Radarr and Sonarr" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --weight=1
+ynh_script_progression "Starting $app's systemd service..."
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
+ynh_systemctl --service=$app --action="start"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed" --last
+ynh_script_progression "Installation of $app completed"
