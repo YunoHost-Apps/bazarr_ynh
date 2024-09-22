@@ -40,7 +40,7 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=2
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep="$install_dir/data"
+	ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep="data"
 fi
 
 mkdir -p "$install_dir/data/config"
@@ -78,7 +78,7 @@ yunohost service add $app --description="Subtitle downloader for Radarr and Sona
 #=================================================
 # UPGRADING BAZARR
 #=================================================
-#REMOVEME? ynh_script_progression --message="Upgrading Bazarr and its dependencies..." --weight=5
+ynh_script_progression --message="Upgrading Bazarr and its dependencies..." --weight=5
 
 pushd $install_dir
     # Initialize virtual environment
