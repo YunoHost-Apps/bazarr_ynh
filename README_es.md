@@ -25,7 +25,7 @@ Bazarr is a companion application to Sonarr and Radarr that manages and download
 - Subtitles upgrade whenever better ones are released
 
 
-**Versión actual:** 1.4.3~ynh1
+**Versión actual:** 1.4.4~ynh1
 
 ## Capturas
 
@@ -41,7 +41,7 @@ Bazarr is a companion application to Sonarr and Radarr that manages and download
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/bazarr_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/bazarr_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 
