@@ -58,9 +58,9 @@ ynh_config_add_systemd
 ynh_script_progression "Adding $app's configuration..."
 
 # Letting Bazarr deploy itself
-ynh_systemctl --service=$app --action="start" --wait_until="BAZARR is started"  --timeout=60
+ynh_systemctl --service=$app --action="start" --wait_until="BAZARR is started" --timeout=60
 sleep 3
-ynh_systemctl --service=$app --action="stop" --wait_until="Bazarr exited"  --timeout=20
+ynh_systemctl --service=$app --action="stop" --wait_until="Bazarr exited" --timeout=20
 
 detect_and_read_radarr_and_sonarr_settings
 
@@ -72,8 +72,8 @@ ynh_app_setting_set --key=api_key --value=$api_key
 
 ynh_config_add --template="config.yaml" --destination="$install_dir/data/config/config.yaml"
 
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 660 "$install_dir/data/config/config.yaml"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app: "$install_dir/data/config/config.yaml"
+chmod 660 "$install_dir/data/config/config.yaml"
+chown $app: "$install_dir/data/config/config.yaml"
 
 #=================================================
 # YUNOHOST MULTIMEDIA INTEGRATION
