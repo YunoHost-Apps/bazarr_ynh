@@ -5,7 +5,9 @@ Hij mag NIET handmatig aangepast worden.
 
 # Bazarr voor Yunohost
 
-[![Integratieniveau](https://dash.yunohost.org/integration/bazarr.svg)](https://ci-apps.yunohost.org/ci/apps/bazarr/) ![Mate van functioneren](https://ci-apps.yunohost.org/ci/badges/bazarr.status.svg) ![Onderhoudsstatus](https://ci-apps.yunohost.org/ci/badges/bazarr.maintain.svg)
+[![Integratieniveau](https://apps.yunohost.org/badge/integration/bazarr)](https://ci-apps.yunohost.org/ci/apps/bazarr/)
+![Mate van functioneren](https://apps.yunohost.org/badge/state/bazarr)
+![Onderhoudsstatus](https://apps.yunohost.org/badge/maintained/bazarr)
 
 [![Bazarr met Yunohost installeren](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=bazarr)
 
@@ -25,7 +27,7 @@ Bazarr is a companion application to Sonarr and Radarr that manages and download
 - Subtitles upgrade whenever better ones are released
 
 
-**Geleverde versie:** 1.4.4~ynh1
+**Geleverde versie:** 1.5.0~ynh1
 
 ## Schermafdrukken
 
