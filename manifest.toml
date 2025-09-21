@@ -55,6 +55,10 @@ ram.runtime = "50M"
     [resources.permissions]
     main.url = "/"
     main.allowed = "admins"
+    api.url = "/api"
+    api.allowed = "visitors"
+    api.show_tile = false
+    api.protected = true
 
     [resources.apt]
     packages = "libxml2-dev, libxslt1-dev, unar, ffmpeg, libatlas-base-dev, python3-venv"
