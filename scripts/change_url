@@ -34,7 +34,7 @@ fi
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service=$app --action="start"  --wait_until="BAZARR is started" --timeout 30
+ynh_systemctl --service=$app --action="start" --wait_until="BAZARR is started and waiting for requests on"
 
 #=================================================
 # END OF SCRIPT
