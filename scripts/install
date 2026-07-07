@@ -104,7 +104,7 @@ yunohost service add $app --description="Subtitle downloader for Radarr and Sona
 ynh_script_progression "Starting $app's systemd service..."
 
 # Start a systemd service
-ynh_systemctl --service=$app --action="start"
+ynh_systemctl --service=$app --action="start" --wait_until="BAZARR is started and waiting for requests on"
 
 #=================================================
 # END OF SCRIPT
