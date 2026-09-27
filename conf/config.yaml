@@ -39,7 +39,7 @@ general:
   adaptive_searching_delay: 3w
   adaptive_searching_delta: 1w
   anti_captcha_provider: null
-  auto_update: true
+  auto_update: false
   base_url: __PATH__
   branch: master
   chmod: '0640'
