@@ -1,0 +1,2 @@
+- Si Radarr ou Sonarr sont installés au préalable sur votre serveur, l'application récupérera automatiquement leurs paramètres et les intégrera dans sa configuration.
+- Activer la mise à jour automatique dans les paramètres est déconseillé et aucun support ne sera fourni si vous le faites.
